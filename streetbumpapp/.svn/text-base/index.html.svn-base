@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+<html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<head>
+	<title>Street Bump Visualization</title>
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+	<script type="text/javascript" charset="utf-8" src="./javascripts/bump.js"></script>
+	<script type="text/javascript" charset="utf-8" src="./javascripts/jquery.form.js"></script>
+	<script type="text/javascript" src="./javascripts/jquery-ui-1.8.16.custom.min.js"></script>
+	
+	<meta name="description" content="">
+
+	<meta name="author" content="">
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Mobile Specific Metas
+	================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
+
+	<!-- CSS
+	================================================== -->
+	<!--
+	<link rel="stylesheet" href="stylesheets/base.css" />
+	<link rel="stylesheet" href="stylesheets/skeleton.css" />
+	<link rel="stylesheet" href="stylesheets/layout.css" />
+	-->
+	<link type="text/css" href="./stylesheets/ui-lightness/jquery-ui-1.8.16.custom.css" rel="stylesheet" />	
+
+
+	<!-- Favicons
+	================================================== -->
+
+	<link rel="shortcut icon" href="images/favicon.ico" />
+	<link rel="apple-touch-icon" href="images/apple-touch-icon.png" />
+	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png" />
+	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png" />
+	<style type="text/css" media="screen">
+		html, body {
+	      height: 100%;
+	      overflow: hidden;
+		  font-size: 12px;
+	    }
+
+	    body {
+	      margin: 0;
+		  font-family: Arial;	
+	    }
+	
+		#map_canvas {
+			/* width: 400px; height: 300px; */
+			height: 100%;
+			
+			
+		}
+		.function_container {
+			padding-bottom: 10px;
+			border-bottom: 1px solid #CCC;
+		}
+	</style>
+</head>
+<body onload="">
+	<div style="width:300px; height: 100%; float: left; left: 0; top: 0px; z-index: 100; background-color: #ddd; padding: 20px; border-right: 3px solid #bbb">		
+		<h3>Street Bump Visualization</h3>
+		<p style="font-size: 90%;"><i>Please refer to Section III in the related report for more information about this app.</i></p>
+		<div>
+			<h4>Upload a Track CSV</h4>
+			<form action="file_upload" method="post" enctype="multipart/form-data" id="track_upload">
+		        <label for="csv_file">File</label><input type="file" name="csv_file" value="" id="csv_file"></label>
+		        <input type="submit" name="upload_csv_file_submit" value="Upload" id="upload_csv_file_submit">
+			</form>
+			<p><strong>Current Working File:</strong> <span id="current_track"></span></p>
+		</div>
+		<hr />
+		<div class="function_container">
+			<p><input type="checkbox" name="z_accel_enabled" id="z_accel_enabled"> zAccel Threshold <input type="text" name="z_accel_threshold_value" value="3.45" id="z_accel_threshold_value" size="4" width=""> </p>
+			<div style="width: 270px;">
+				<strong>1</strong> <span style="float: right;"><strong>4</strong></span><div id="slider" style="width: 200px; margin: 10px; float: right;"></div>
+			</div>
+		</div>
+		<div class="function_container">
+			<p><input type="checkbox" name="z_x_ratio_enabled" id="z_x_ratio_enabled"> z/x Ratio <input type="text" name="z_accel_threshold_value" value="20" id="z_x_ratio_threshold" size="4"></p>
+			<div style="width: 270px;">
+				<strong>0</strong> <span style="float: right;"><strong>30</strong></span><div id="z_x_slider" style="width: 200px; margin: 10px; float: right;"></div>
+			</div>
+		</div>
+		<div class="function_container">
+			<p><input type="checkbox" name="min_speed_enabled" id="min_speed_enabled"> Min Speed (MPH)<input type="text" name="min_speed_threshold_value" value="15" id="min_speed_threshold_value" width="10px" size="4"> </p>
+			<div style="width: 270px;">
+				<strong>0</strong> <span style="float: right;"><strong>50</strong></span><div id="min_speed_slider" style="width: 200px; margin: 10px; float: right;"></div>
+			</div>
+		</div>
+		<div class="function_container">
+			<p><input type="checkbox" name="z_vs_speed_enabled" id="z_vs_speed_enabled"> zAccel Vs Speed  <input type="text" name="z_vs_speed_threshold_value" value=".5" id="z_vs_speed_threshold_value" width="10px" size="4"></p>
+			<div style="width: 270px;">
+				<strong>0</strong> <span style="float: right;"><strong>50</strong></span><div id="z_vs_speed_slider" style="width: 200px; margin: 10px; float: right;"></div> 
+			</div>
+		</div>
+	</div>	
+<div id="map_canvas" style=""></div>
+</body>
+</html>
